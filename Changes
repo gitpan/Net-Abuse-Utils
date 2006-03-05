@@ -1,4 +1,11 @@
 Revision history for Perl extension Net::Abuse::Utils.
 
+0.02  Sun Mar  5 05:35:12 2006
+	- Fixed a bug where AS Description would only return data
+	  for ASs assigned by ARIN.
+	- In get_ipwi_contacts check that whoisip_query returns a
+	  hash ref rather then just checking that it isn't an array ref.
+    - a few minor formatting cleanups
+
 0.01  Sat Mar  4 00:46:40 2006
 	- Initial Release

@@ -19,8 +19,8 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-our $VERSION = '0.01';
-$VERSION = eval $VERSION;  # see L<perlmodstyle>
+our $VERSION = '0.02';
+$VERSION = eval $VERSION;
 
 sub reverse_ip {
     my $ip = shift;
@@ -97,10 +97,8 @@ sub get_ipwi_contacts {
 
     my $response = whoisip_query($ip);
 
-#     warn Dumper($response);
-
     # whoisip_query returns array ref if not found
-    return if (ref($response) eq 'ARRAY');
+    return unless ref($response) eq 'HASH';
     
     foreach my $field (keys %$response) {
         push @addresses, Email::Address->parse($response->{$field});
@@ -147,10 +145,16 @@ sub get_asn_info {
 sub get_as_description {
     my $asn = shift;
     
-    my $description =         ( split (/\|/,return_rr("AS${asn}.asn.cymru.com", 'TXT') ) )[4];
-    if ($description) {
-        return strip_whitespace (( split (/ - /, $description, 2) )[1]);
+    my @ASdata = split('\|', return_rr("AS${asn}.asn.cymru.com", 'TXT'));
+    
+    # for arin we get HANDLE - AS Org
+    if ($ASdata[2] eq ' arin ') {
+        return strip_whitespace (( split (/ - /, $ASdata[4], 2) )[1]);
     }
+    else {
+        return strip_whitespace $ASdata[4];
+    }
+    
     return;
 }
 
@@ -164,6 +168,8 @@ sub get_soa_contact {
         $soa_contact =~ s/\./@/;
         return $soa_contact;
     }
+    
+    return;
 }
 
 sub get_rdns {
@@ -204,7 +210,6 @@ sub get_abusenet_contact {
 
 1;
 __END__
-# Below is stub documentation for your module. You'd better edit it!
 
 =head1 NAME
 
@@ -213,7 +218,7 @@ Net::Abuse::Utils - Routines useful for processing network abuse
 
 =head1 VERSION
 
-This documentation refers to Net::Abuse::Utils version 0.01.
+This documentation refers to Net::Abuse::Utils version 0.02.
 
 
 =head1 SYNOPSIS

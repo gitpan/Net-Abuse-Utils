@@ -6,18 +6,18 @@ use warnings;
 use Net::Abuse::Utils qw( :all );
 
 my %dnsbl = (
-		'Spamhaus'	    => 'sbl-xbl.spamhause.org',
+		'Spamhaus'      => 'sbl-xbl.spamhause.org',
 		'SpamCop'       => 'bl.spamcop.net',
-		'Relays ORDB'	=> 'relays.ordb.org',
-		'Relays VISI'	=> 'relays.vsi.com',
-		'Composite BL'	=> 'cbl.abuseat.org',
-		'Dynablock BL'	=> 'dnsbl.njabl.org',
-		'DSBL Proxy'	=> 'list.dsbl.org',
-		'DSBL Multihop'	=> 'multihop.dsbl.org',
-		'SORBS OR'	    => 'dnsbl.sorbs.net',
-		'SPEWS L1'	    => 'l1.spews.dnsbl.sorbs.net',
-		'SPEWS L2'	    => 'l2.spews.dnsbl.sorbs.net',
-		'Blitzed OPM'	=> 'opm.blitzed.org',
+		'Relays ORDB'   => 'relays.ordb.org',
+		'Relays VISI'   => 'relays.vsi.com',
+		'Composite BL'  => 'cbl.abuseat.org',
+		'Dynablock BL'  => 'dnsbl.njabl.org',
+		'DSBL Proxy'    => 'list.dsbl.org',
+		'DSBL Multihop' => 'multihop.dsbl.org',
+		'SORBS OR'      => 'dnsbl.sorbs.net',
+		'SPEWS L1'      => 'l1.spews.dnsbl.sorbs.net',
+		'SPEWS L2'      => 'l2.spews.dnsbl.sorbs.net',
+		'Blitzed OPM'   => 'opm.blitzed.org',
 		);
 
 my $ip = shift;
@@ -31,12 +31,12 @@ print "\tIP Country: ", get_ip_country($ip), "\n";
 print "\nAS Info:\n";
 if (my @asn = get_asn_info($ip) ) {
     my $asn_org = get_as_description($asn[0]) || '';
-	print "\tASN:        $asn[0] - $asn[1]\n";
+    print "\tASN:        $asn[0] - $asn[1]\n";
     print "\tAS  Org:    $asn_org\n";
     print "\tAS Country: ", get_asn_country($asn[0]), "\n";
 }
 else {
-	print "\tUnknown ASN\n";
+    print "\tUnknown ASN\n";
 }
 
 print "\nDNSBL Listings:\n";
