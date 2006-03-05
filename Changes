@@ -1,5 +1,8 @@
 Revision history for Perl extension Net::Abuse::Utils.
 
+0.03  Sun Mar  5 05:46:31 2006
+	- 0.02 was uploaded with a broken test
+
 0.02  Sun Mar  5 05:35:12 2006
 	- Fixed a bug where AS Description would only return data
 	  for ASs assigned by ARIN.
