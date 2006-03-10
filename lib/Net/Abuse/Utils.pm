@@ -1,6 +1,6 @@
 package Net::Abuse::Utils;
 
-use 5.008007;
+use 5.006_001;
 use strict;
 use warnings;
 
@@ -14,21 +14,22 @@ our @ISA = qw(Exporter);
 
 our %EXPORT_TAGS = ( 'all' => [ qw(
 	get_asn_info get_as_description get_soa_contact get_ipwi_contacts
-	get_rdns get_dnsbl_listing get_ip_country get_asn_country get_abusenet_contact
+	get_rdns get_dnsbl_listing get_ip_country get_asn_country
+	get_abusenet_contact is_ip
 ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 $VERSION = eval $VERSION;
 
-sub reverse_ip {
+sub _reverse_ip {
     my $ip = shift;
     my @quads = split ('\.', $ip);
     return join('.', reverse(@quads));
 } 
 
-sub return_rr {
+sub _return_rr {
     my $lookup  = shift;
     my $rr_type = shift;
     my $concat  = shift;
@@ -65,7 +66,7 @@ sub return_rr {
     return; 
 }
 
-sub return_unique {
+sub _return_unique {
     my $array_ref = shift;
     my %unique_elements;
 
@@ -76,7 +77,7 @@ sub return_unique {
     return keys %unique_elements;
 }
 
-sub strip_whitespace {
+sub _strip_whitespace {
     my $string = shift;
     
     return unless $string;
@@ -106,14 +107,14 @@ sub get_ipwi_contacts {
 
     @addresses = map { $_->address } @addresses;
 
-    return return_unique (\@addresses);
+    return _return_unique (\@addresses);
 }
 
 sub get_asn_info {
     my $ip = shift;
 
-    my $lookup    = reverse_ip($ip) . '.origin.asn.cymru.com';
-    my @origin_as = return_rr($lookup, 'TXT', 2) or return;
+    my $lookup    = _reverse_ip($ip) . '.origin.asn.cymru.com';
+    my @origin_as = _return_rr($lookup, 'TXT', 2) or return;
     
     # 23028 | 216.90.108.0/24 | US | arin | 1998-09-25
     # 701 1239 3549 3561 7132 | 216.90.108.0/24 | US | arin | 1998-09-25
@@ -139,20 +140,20 @@ sub get_asn_info {
         }
     }
 
-    return map { strip_whitespace($_) } @{ $data_for_asn{$smallest_asn} };
+    return map { _strip_whitespace($_) } @{ $data_for_asn{$smallest_asn} };
 }
 
 sub get_as_description {
     my $asn = shift;
     
-    my @ASdata = split('\|', return_rr("AS${asn}.asn.cymru.com", 'TXT'));
+    my @ASdata = split('\|', _return_rr("AS${asn}.asn.cymru.com", 'TXT'));
     
     # for arin we get HANDLE - AS Org
     if ($ASdata[2] eq ' arin ') {
-        return strip_whitespace (( split (/ - /, $ASdata[4], 2) )[1]);
+        return _strip_whitespace (( split (/ - /, $ASdata[4], 2) )[1]);
     }
     else {
-        return strip_whitespace $ASdata[4];
+        return _strip_whitespace $ASdata[4];
     }
     
     return;
@@ -161,10 +162,10 @@ sub get_as_description {
 sub get_soa_contact {
     my $ip = shift;
 
-    my $lookup = reverse_ip($ip) . '.in-addr.arpa';
+    my $lookup = _reverse_ip($ip) . '.in-addr.arpa';
     $lookup =~ s/^\d+\.//;
 
-    if ( my $soa_contact = return_rr($lookup, 'SOA') ) {
+    if ( my $soa_contact = _return_rr($lookup, 'SOA') ) {
         $soa_contact =~ s/\./@/;
         return $soa_contact;
     }
@@ -175,16 +176,16 @@ sub get_soa_contact {
 sub get_rdns {
     my $ip = shift;
 
-    return return_rr( reverse_ip($ip) . '.in-addr.arpa', 'PTR');
+    return _return_rr( _reverse_ip($ip) . '.in-addr.arpa', 'PTR');
 }
 
 sub get_dnsbl_listing {
     my $ip    = shift;
     my $dnsbl = shift;
 
-    my $lookup = join '.', reverse_ip( $ip ), $dnsbl;
+    my $lookup = join '.', _reverse_ip( $ip ), $dnsbl;
     
-    return return_rr($lookup, 'TXT', 1);
+    return _return_rr($lookup, 'TXT', 1);
 }
 
 sub get_ip_country {
@@ -195,9 +196,9 @@ sub get_ip_country {
 
 sub get_asn_country {
     my $asn   = shift;
-    my $as_cc = ( split (/\|/,return_rr("AS${asn}.asn.cymru.com", 'TXT') ) )[1];
+    my $as_cc = (split (/\|/,_return_rr("AS${asn}.asn.cymru.com", 'TXT')))[1];
     if ($as_cc) {
-        return strip_whitespace ($as_cc);
+        return _strip_whitespace ($as_cc);
     }
     return;
 }
@@ -205,7 +206,17 @@ sub get_asn_country {
 sub get_abusenet_contact {
     my $domain = shift;
     
-    return return_rr("$domain.contacts.abuse.net", 'TXT', 1)
+    return _return_rr("$domain.contacts.abuse.net", 'TXT', 1)
+}
+
+sub is_ip {
+    $_ = shift;
+    return m/
+                ^
+                (?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}
+                (?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
+                $
+           /x;
 }
 
 1;
@@ -218,14 +229,14 @@ Net::Abuse::Utils - Routines useful for processing network abuse
 
 =head1 VERSION
 
-This documentation refers to Net::Abuse::Utils version 0.03.
+This documentation refers to Net::Abuse::Utils version 0.04.
 
 
 =head1 SYNOPSIS
 
     use Net::Abuse::Utils qw( :all );
     print "IP Whois Contacts: ", join( ' ', get_ipwi_contacts($ip) ), "\n";
-    print "Abuse.net Contacts for $domain: ", get_abusenet_contact($domain), "\n";
+    print "Abuse.net Contacts: ", get_abusenet_contact($domain), "\n";
 
 =head1 DESCRIPTION
 
@@ -280,6 +291,10 @@ Returns the 2 letter country code for C<ASN>.
 =item get_abusenet_contact ( domain )
 
 Returns the abuse.net listed contact email addresses for C<domain>.
+
+=item is_ip ( IP )
+
+Returns true if C<IP> looks like an IP, false otherwise.
 
 =back
 

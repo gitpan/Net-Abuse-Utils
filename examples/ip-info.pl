@@ -22,6 +22,12 @@ my %dnsbl = (
 
 my $ip = shift;
 
+if (!is_ip($ip)) {
+    warn "$ip doesn't look like an IP.\n";
+    exit;
+}
+
+
 my $rdns = get_rdns($ip) || '';
 print "IP Info:\n";
 print "\tIP:         $ip\n";
