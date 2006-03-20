@@ -20,7 +20,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 $VERSION = eval $VERSION;
 
 sub _reverse_ip {
@@ -127,11 +127,15 @@ sub get_asn_info {
     for my $asn_info (@origin_as) {
         my @fields  = split /\|/, $asn_info;
         my @network = split '/', $fields[1];
-        
-        # we don't expect multiple asns but the spec says they may occur, so
-        # just use the first
-        (my $asn = $fields[0]) =~ /(d+)/; 
-        
+
+        # if multiple ASNs announce the same, block they are given space
+        # seperated in the first field, we just use the first
+        if ($fields[0] =~ /(\d+) \d+/) {
+            $fields[0] = $1;
+        }
+
+        my $asn = $fields[0];
+                 
         $data_for_asn{$asn} = [ @fields ];
         
         if ($network[1] > $smallest_netmask) {
@@ -145,8 +149,14 @@ sub get_asn_info {
 
 sub get_as_description {
     my $asn = shift;
+    my @ASdata;
     
-    my @ASdata = split('\|', _return_rr("AS${asn}.asn.cymru.com", 'TXT'));
+    if (my $data = _return_rr("AS${asn}.asn.cymru.com", 'TXT')) {
+        @ASdata = split('\|', $data);
+    } 
+    else {
+        return;
+    }
     
     # for arin we get HANDLE - AS Org
     if ($ASdata[2] eq ' arin ') {
@@ -229,7 +239,7 @@ Net::Abuse::Utils - Routines useful for processing network abuse
 
 =head1 VERSION
 
-This documentation refers to Net::Abuse::Utils version 0.04.
+This documentation refers to Net::Abuse::Utils version 0.05.
 
 
 =head1 SYNOPSIS
