@@ -29,11 +29,11 @@ Net::Abuse::Utils - Routines useful for processing network abuse
 
 =head1 VERSION
 
-This documentation refers to Net::Abuse::Utils version 0.10.
+This documentation refers to Net::Abuse::Utils version 0.11.
 
 =cut
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 $VERSION = eval $VERSION;
 
 # memoize('_return_rr');
@@ -240,6 +240,8 @@ sub get_ip_country {
 
 sub get_asn_country {
     my $asn   = shift;
+    return unless $asn =~ /^\d+$/;
+
     my $as_cc = (split (/\|/,_return_rr("AS${asn}.asn.cymru.com", 'TXT')))[1];
     if ($as_cc) {
         return _strip_whitespace ($as_cc);
