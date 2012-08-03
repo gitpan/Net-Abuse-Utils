@@ -1,0 +1,44 @@
+{
+   "abstract" : "Routines useful for processing network abuse",
+   "author" : [
+      "Michael Greb <mgreb@linode.com>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.120921",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Net-Abuse-Utils",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "inc"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Email::Address" : "0",
+            "Net::DNS" : "0",
+            "Net::Whois::IP" : "0",
+            "perl" : "5.006"
+         }
+      }
+   },
+   "release_status" : "testing",
+   "version" : "0.11_01"
+}

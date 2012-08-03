@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.55.
+signed via the Module::Signature module, version 0.68.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,14 +14,15 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 84de9c5f58874a8ba3176f809ddca9d39ce29d00 Changes
+SHA1 213d8521ff17652f8eb784d95e5555c93532b7c4 Changes
 SHA1 558da2a073a05d24dabbe419e8cf49afe73e9a88 LICENSE
-SHA1 4a20a07c4f34e73c5864b1b35bc53992b6513190 MANIFEST
-SHA1 c1c83a448741eb28b914fa22cb6f3d7e209c553b META.yml
+SHA1 8f99d75d089f79847e1ee2fde89319aecc32b86b MANIFEST
+SHA1 233926b68ee20e392e138210d50233b7c3936198 META.json
+SHA1 26b1130c8b0df4906a4a679f1e6fac8de8fade9f META.yml
 SHA1 678f0b97919b0bb5333dab0489e2f61417c1fc24 Makefile.PL
 SHA1 e886380bd30f102c143383058f42d53f08f3f659 README
-SHA1 f4c8c1a9484946e683831fcb7e46b1ed1c43573b examples/ip-info.pl
-SHA1 fc978925b0b500388e1e338d6744e7ecf03594c2 lib/Net/Abuse/Utils.pm
+SHA1 3d48f4aa7a58877291b654fc08ce472794a3c274 examples/ip-info.pl
+SHA1 bb2a4655682f052410fd6e8cf3fbf0939e343783 lib/Net/Abuse/Utils.pm
 SHA1 8d988cff815aebb547acd2ad8ec6e4bca6965967 t/0-signature.t
 SHA1 8060bd05d31341b9a1b281b106b4ad92c6e81951 t/Net-Abuse-Utils.t
 SHA1 b802b3dbd33ce28d3156207d1f243de84446e967 t/pod-coverage.t
@@ -29,7 +30,7 @@ SHA1 2d0bc351d2899d795acda5b9edb3fd9cd2531762 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (Darwin)
 
-iEYEARECAAYFAkqtxZgACgkQ0Qbp4bPZvevfVwCcC6dPc2UimAMur320dPZVn5jP
-6EwAn20PYDXMMMgvrsbWVEoM8zByVoHi
-=FAXo
+iEYEARECAAYFAlAb88gACgkQ0Qbp4bPZveugawCg1Sj/zpYeud5NMoU+FR984YxO
+sTMAn3pzMgz/jDK+2zl8OTaUwclAmW6o
+=hCs6
 -----END PGP SIGNATURE-----
