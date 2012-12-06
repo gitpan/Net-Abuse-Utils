@@ -22,4 +22,4 @@ requires:
   Net::DNS: 0
   Net::Whois::IP: 0
   perl: 5.006
-version: 0.12
+version: 0.13
