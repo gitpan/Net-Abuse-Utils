@@ -1,14 +1,18 @@
+Build.PL
 Changes
-examples/ip-info.pl
-lib/Net/Abuse/Utils.pm
 LICENSE
-Makefile.PL
 MANIFEST
-README
+META.json
 META.yml
+Makefile.PL
+README
+cpanfile
+dist.ini
+examples/ip-info.pl
+examples/malware.pl
+lib/Net/Abuse/Utils.pm
 t/0-signature.t
 t/Net-Abuse-Utils.t
 t/pod-coverage.t
 t/pod.t
-META.json                                Module JSON meta-data (added by MakeMaker)
-SIGNATURE                                Public-key signature (added by MakeMaker)
+t/release-pod-syntax.t

@@ -1,13 +1,12 @@
 ---
 abstract: 'Routines useful for processing network abuse'
 author:
-  - 'Michael Greb <mgreb@linode.com>'
-build_requires:
-  ExtUtils::MakeMaker: 0
+  - 'Michael Greb, <mgreb@linode.com>'
+build_requires: {}
 configure_requires:
-  ExtUtils::MakeMaker: 0
-dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.120921'
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Milla version v1.0.3, Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -16,10 +15,26 @@ name: Net-Abuse-Utils
 no_index:
   directory:
     - t
+    - xt
     - inc
+    - share
+    - eg
+    - examples
 requires:
   Email::Address: 0
   Net::DNS: 0
   Net::Whois::IP: 0
-  perl: 5.006
-version: 0.13
+resources:
+  bugtracker: https://github.com/mikegrb/Net-Abuse-Utils/issues
+  homepage: https://github.com/mikegrb/Net-Abuse-Utils
+  repository: https://github.com/mikegrb/Net-Abuse-Utils.git
+version: 0.14
+x_contributors:
+  - 'Michael Greb <mgreb@linode.com>'
+  - 'Michael Greb <michael@orion.thegrebs.com>'
+  - 'Michael Greb <michael@soryu.i3>'
+  - 'Michael Greb <michael@thegrebs.com>'
+  - 'Rev Michael Greb <michael@thegrebs.com>'
+  - 'Wes <github@barely3am.com>'
+  - 'Wes Young <github@barely3am.com>'
+  - 'mikegrb <mgreb@linode.com>'
