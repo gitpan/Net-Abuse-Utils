@@ -6,7 +6,7 @@ build_requires: {}
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Milla version v1.0.4, Dist::Zilla version 4.300036, CPAN::Meta::Converter version 2.131560'
+generated_by: 'Dist::Milla version v1.0.4, Dist::Zilla version 4.300037, CPAN::Meta::Converter version 2.131560'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -29,7 +29,7 @@ resources:
   bugtracker: https://github.com/mikegrb/Net-Abuse-Utils/issues
   homepage: https://github.com/mikegrb/Net-Abuse-Utils
   repository: https://github.com/mikegrb/Net-Abuse-Utils.git
-version: 0.18
+version: 0.19
 x_contributors:
   - 'Wes Young <github@barely3am.com>'
   - 'mikegrb <michael@thegrebs.com>'
