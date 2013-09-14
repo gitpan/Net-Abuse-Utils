@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-
+use 5.006;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
     "Net::Whois::IP" => "1.11"
   },
   "TEST_REQUIRES" => {},
-  "VERSION" => "0.19",
+  "VERSION" => "0.20",
   "test" => {
     "TESTS" => "t/*.t"
   }
