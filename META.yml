@@ -30,7 +30,7 @@ resources:
   bugtracker: https://github.com/mikegrb/Net-Abuse-Utils/issues
   homepage: https://github.com/mikegrb/Net-Abuse-Utils
   repository: https://github.com/mikegrb/Net-Abuse-Utils.git
-version: 0.21
+version: 0.22
 x_contributors:
   - 'Wes Young <github@barely3am.com>'
   - 'mikegrb <michael@thegrebs.com>'
