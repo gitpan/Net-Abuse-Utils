@@ -1,4 +1,5 @@
 package Net::Abuse::Utils;
+# ABSTRACT: Routines useful for processing network abuse
 
 use 5.006;
 use strict;
@@ -21,7 +22,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
 ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-our $VERSION = '0.22';
+our $VERSION = '0.23';
 $VERSION = eval $VERSION;
 
 # memoize('_return_rr');
@@ -179,10 +180,10 @@ sub get_peer_info {
 
     my $lookup    = _reverse_ip($ip) . '.peer.asn.cymru.com';
     my @origin_as = _return_rr($lookup, 'TXT', 2) or return;
-    
+
     my $return = [];
     foreach my $as (@origin_as){
-        my @peers = split(/\s\|\s/,$as);
+        my @peers = split(/\s\|\s?/,$as);
         my %hash = (
             prefix  => $peers[1],
             cc      => $peers[2],
@@ -201,7 +202,7 @@ sub get_peer_info {
             });
         }
     }
-    return(@$return) if wantarray;    
+    return(@$return) if wantarray;
     return($return);
 }
 
@@ -343,9 +344,15 @@ sub get_domain {
 
 1;
 
+=pod
+
 =head1 NAME
 
 Net::Abuse::Utils - Routines useful for processing network abuse
+
+=head1 VERSION
+
+version 0.23
 
 =head1 SYNOPSIS
 
@@ -473,26 +480,31 @@ Rik Rose, Jon Honeycutt, Brandon Hale, TJ Fontaine, A. Pagaltzis, and
 Heidi Greb all provided invaluable input during the development of this
 module.
 
-=head1 AUTHORS
-
-Michael Greb, <mgreb@linode.com>
-Wes Young, <wes@barely3am.com>
-
 =head1 SEE ALSO
 
 For a detailed usage example, please see examples/ip-info.pl included in
 this module's distribution.
 
-=head1 LICENCE AND COPYRIGHT
+=head1 AUTHORS
 
-Copyright (c) 2006-2008 Michael Greb (mgreb@linode.com). All rights reserved.
+=over 4
 
-This module is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself. See L<perlartistic>.
+=item *
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+mikegrb <michael@thegrebs.com>
+
+=item *
+
+Wes Young <github@barely3am.com>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2013 by Mike Greb.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
 

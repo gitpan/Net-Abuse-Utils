@@ -1,6 +1,9 @@
 NAME
     Net::Abuse::Utils - Routines useful for processing network abuse
 
+VERSION
+    version 0.23
+
 SYNOPSIS
         use Net::Abuse::Utils qw( :all );
         print "IP Whois Contacts: ", join( ' ', get_ipwi_contacts($ip) ), "\n";
@@ -108,21 +111,18 @@ ACKNOWLEDGEMENTS
     Heidi Greb all provided invaluable input during the development of this
     module.
 
-AUTHORS
-    Michael Greb, <mgreb@linode.com> Wes Young, <wes@barely3am.com>
-
 SEE ALSO
     For a detailed usage example, please see examples/ip-info.pl included in
     this module's distribution.
 
-LICENCE AND COPYRIGHT
-    Copyright (c) 2006-2008 Michael Greb (mgreb@linode.com). All rights
-    reserved.
+AUTHORS
+    *   mikegrb <michael@thegrebs.com>
 
-    This module is free software; you can redistribute it and/or modify it
-    under the same terms as Perl itself. See perlartistic.
+    *   Wes Young <github@barely3am.com>
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2013 by Mike Greb.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 
